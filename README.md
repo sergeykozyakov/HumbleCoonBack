@@ -1,2 +1,2 @@
 # HumbleCoonBack
-Java spring REST-server
+Java Spring REST-server
