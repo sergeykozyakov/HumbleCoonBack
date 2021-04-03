@@ -14,22 +14,17 @@ repositories {
 }
 
 dependencies {
+    compile 'com.github.jsimone:webapp-runner:8.5.11.3'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    compile 'com.github.jsimone:webapp-runner:8.5.11.3'
 }
 
 test {
     useJUnitPlatform()
 }
-
-task stage() {
-    dependsOn clean, war
-}
-war.mustRunAfter clean
 
 task copyToLib(type: Copy) {
     into "$buildDir/server"
@@ -38,4 +33,4 @@ task copyToLib(type: Copy) {
     }
 }
 
-stage.dependsOn(copyToLib)
+build.dependsOn(copyToLib)
