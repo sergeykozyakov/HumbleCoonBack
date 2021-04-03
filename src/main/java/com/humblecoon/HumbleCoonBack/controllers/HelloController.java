@@ -16,7 +16,7 @@ public class HelloController {
     }
 
     @RequestMapping("/hello")
-    public User hello(@RequestParam(value = "name", defaultValue = "World") String name) {
+    public User hello(@RequestParam(value = "name", defaultValue = "Coon") String name) {
         return service.greet(name);
     }
 }

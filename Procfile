@@ -1,1 +1,1 @@
-web: java -jar build/server/webapp-runner-*.jar build/libs/*.war
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/build/libs/HumbleCoonBack-1.0-SNAPSHOT.jar
