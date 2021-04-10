@@ -1,23 +1,13 @@
 package com.humblecoon.HumbleCoonBack.entities;
 
-public class User {
+public class UserRequest {
 
-    private long id;
     private String name;
 
-    public User() {}
+    public UserRequest() {}
 
-    public User(Long id, String name) {
-        this.id = id;
+    public UserRequest(String name) {
         this.name = name;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -30,8 +20,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
+        return "UserRequest{" +
                 ", name='" + name + '\'' +
                 '}';
     }
