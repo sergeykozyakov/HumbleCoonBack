@@ -1,9 +1,8 @@
 package com.humblecoon.HumbleCoonBack;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -14,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(HelloController.class)
@@ -27,9 +27,24 @@ public class HelloControllerTest {
 
     @Test
     public void shouldReturnResponse() throws Exception {
-        when(greetingService.greet("Test")).thenReturn(new User(1L, "Hello Test!"));
+        String queryString = "/hello?name=Test123";
+        String postUrl = "/hello_json";
 
-        mockMvc.perform(get("/hello?name=Test")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello Test!")));
+        String requestJson = "{\"name\": \"Test123\"}";
+        String responseJson = "{\"id\":1, \"name\":\"Hello Test123!\"}";
+
+        when(greetingService.greet("Test123")).thenReturn(new User(1L, "Hello Test123!"));
+
+        mockMvc.perform(
+                get(queryString))
+                .andExpect(status().isOk())
+                .andExpect(content().json(responseJson));
+
+        mockMvc.perform(
+                post(postUrl)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(content().json(responseJson));
     }
 }
